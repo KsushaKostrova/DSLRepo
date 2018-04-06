@@ -10,11 +10,12 @@ import org.example.domainmodel.domainmodel.Method
 import org.eclipse.xtext.naming.IQualifiedNameProvider
  
 import com.google.inject.Inject
+import org.eclipse.emf.common.util.EList
 
 class DomainmodelGenerator extends AbstractGenerator {
  
     @Inject extension IQualifiedNameProvider
- 
+    
     override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
         for (e : resource.allContents.toIterable.filter(Entity)) {
             fsa.generateFile(
@@ -39,8 +40,8 @@ class DomainmodelGenerator extends AbstractGenerator {
         }
     '''
  
-    def compile(Feature f) '''
-        private «f.type.fullyQualifiedName» «f.name»;
+    def compile(Feature f) '''    	 
+        private «f.type.fullyQualifiedName» «f.name»«IF f.value !== null && !f.value.equals("") && f.type.equals("String")» = "«getValue(f)»"«ENDIF»;
         
         public «f.type.fullyQualifiedName» get«f.name.toFirstUpper»() {
             return «f.name»;
@@ -56,5 +57,13 @@ class DomainmodelGenerator extends AbstractGenerator {
     		«m.body»;
     	}
     '''
+    def String getValue(Feature f) {
+		var String result = ""
+    	for (var int i = 0; i < f.getValue().length; i++) {
+    		result = result+f.getValue().get(i)
+    	}
+    	return result
+    }
+    
 }
 

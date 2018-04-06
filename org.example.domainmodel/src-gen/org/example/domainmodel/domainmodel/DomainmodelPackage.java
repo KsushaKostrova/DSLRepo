@@ -318,13 +318,22 @@ public interface DomainmodelPackage extends EPackage
   int FEATURE__TYPE = 2;
 
   /**
+   * The feature id for the '<em><b>Value</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FEATURE__VALUE = 3;
+
+  /**
    * The number of structural features of the '<em>Feature</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FEATURE_FEATURE_COUNT = 3;
+  int FEATURE_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.example.domainmodel.domainmodel.impl.MethodImpl <em>Method</em>}' class.
@@ -566,6 +575,17 @@ public interface DomainmodelPackage extends EPackage
   EReference getFeature_Type();
 
   /**
+   * Returns the meta object for the attribute list '{@link org.example.domainmodel.domainmodel.Feature#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Value</em>'.
+   * @see org.example.domainmodel.domainmodel.Feature#getValue()
+   * @see #getFeature()
+   * @generated
+   */
+  EAttribute getFeature_Value();
+
+  /**
    * Returns the meta object for class '{@link org.example.domainmodel.domainmodel.Method <em>Method</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -787,6 +807,14 @@ public interface DomainmodelPackage extends EPackage
      * @generated
      */
     EReference FEATURE__TYPE = eINSTANCE.getFeature_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FEATURE__VALUE = eINSTANCE.getFeature_Value();
 
     /**
      * The meta object literal for the '{@link org.example.domainmodel.domainmodel.impl.MethodImpl <em>Method</em>}' class.

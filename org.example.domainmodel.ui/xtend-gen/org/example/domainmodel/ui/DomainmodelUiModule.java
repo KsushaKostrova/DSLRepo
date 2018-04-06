@@ -3,6 +3,7 @@
  */
 package org.example.domainmodel.ui;
 
+import com.google.inject.Module;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor;
 import org.example.domainmodel.ui.AbstractDomainmodelUiModule;
@@ -12,7 +13,7 @@ import org.example.domainmodel.ui.AbstractDomainmodelUiModule;
  */
 @FinalFieldsConstructor
 @SuppressWarnings("all")
-public class DomainmodelUiModule extends AbstractDomainmodelUiModule {
+public class DomainmodelUiModule extends AbstractDomainmodelUiModule implements Module {
   public DomainmodelUiModule(final AbstractUIPlugin plugin) {
     super(plugin);
   }

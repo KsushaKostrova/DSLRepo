@@ -514,6 +514,80 @@ ruleEntity returns [EObject current=null]
 	)
 ;
 
+// Entry rule entryRuleValue
+entryRuleValue returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getValueRule()); }
+	iv_ruleValue=ruleValue
+	{ $current=$iv_ruleValue.current.getText(); }
+	EOF;
+
+// Rule Value
+ruleValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		this_ID_0=RULE_ID
+		{
+			$current.merge(this_ID_0);
+		}
+		{
+			newLeafNode(this_ID_0, grammarAccess.getValueAccess().getIDTerminalRuleCall_0());
+		}
+		    |
+		kw='('
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getValueAccess().getLeftParenthesisKeyword_1());
+		}
+		    |
+		kw=')'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getValueAccess().getRightParenthesisKeyword_2());
+		}
+		    |
+		kw='<'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getValueAccess().getLessThanSignKeyword_3());
+		}
+		    |
+		kw='='
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getValueAccess().getEqualsSignKeyword_4());
+		}
+		    |
+		kw='>'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getValueAccess().getGreaterThanSignKeyword_5());
+		}
+		    |
+		kw='*'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getValueAccess().getAsteriskKeyword_6());
+		}
+		    |
+		kw='+'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getValueAccess().getPlusSignKeyword_7());
+		}
+		    |
+		kw='-'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getValueAccess().getHyphenMinusKeyword_8());
+		}
+	)
+;
+
 // Entry rule entryRuleFeature
 entryRuleFeature returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getFeatureRule()); }
@@ -582,6 +656,31 @@ ruleFeature returns [EObject current=null]
 				}
 			)
 		)
+		(
+			otherlv_4=':'
+			{
+				newLeafNode(otherlv_4, grammarAccess.getFeatureAccess().getColonKeyword_4_0());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getFeatureAccess().getValueValueParserRuleCall_4_1_0());
+					}
+					lv_value_5_0=ruleValue
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getFeatureRule());
+						}
+						add(
+							$current,
+							"value",
+							lv_value_5_0,
+							"org.example.domainmodel.Domainmodel.Value");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)*
+		)?
 	)
 ;
 

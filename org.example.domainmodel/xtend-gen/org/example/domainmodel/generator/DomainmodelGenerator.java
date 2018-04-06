@@ -11,6 +11,7 @@ import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
@@ -96,6 +97,14 @@ public class DomainmodelGenerator extends AbstractGenerator {
     _builder.append(" ");
     String _name = f.getName();
     _builder.append(_name);
+    {
+      if ((((f.getValue() != null) && (!f.getValue().equals(""))) && f.getType().equals("String"))) {
+        _builder.append(" = \"");
+        String _value = this.getValue(f);
+        _builder.append(_value);
+        _builder.append("\"");
+      }
+    }
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
@@ -156,5 +165,15 @@ public class DomainmodelGenerator extends AbstractGenerator {
     _builder.append("}");
     _builder.newLine();
     return _builder;
+  }
+  
+  public String getValue(final Feature f) {
+    String result = "";
+    for (int i = 0; (i < ((Object[])Conversions.unwrapArray(f.getValue(), Object.class)).length); i++) {
+      String _get = f.getValue().get(i);
+      String _plus = (result + _get);
+      result = _plus;
+    }
+    return result;
   }
 }

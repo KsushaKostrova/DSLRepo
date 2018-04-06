@@ -3,13 +3,19 @@
  */
 package org.example.domainmodel.domainmodel.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 
 import org.example.domainmodel.domainmodel.DomainmodelPackage;
 import org.example.domainmodel.domainmodel.Feature;
@@ -26,6 +32,7 @@ import org.example.domainmodel.domainmodel.Type;
  *   <li>{@link org.example.domainmodel.domainmodel.impl.FeatureImpl#isMany <em>Many</em>}</li>
  *   <li>{@link org.example.domainmodel.domainmodel.impl.FeatureImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.example.domainmodel.domainmodel.impl.FeatureImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.example.domainmodel.domainmodel.impl.FeatureImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @generated
@@ -81,6 +88,16 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
    * @ordered
    */
   protected Type type;
+
+  /**
+   * The cached value of the '{@link #getValue() <em>Value</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValue()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> value;
 
   /**
    * <!-- begin-user-doc -->
@@ -197,6 +214,20 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<String> getValue()
+  {
+    if (value == null)
+    {
+      value = new EDataTypeEList<String>(String.class, this, DomainmodelPackage.FEATURE__VALUE);
+    }
+    return value;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -209,6 +240,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
       case DomainmodelPackage.FEATURE__TYPE:
         if (resolve) return getType();
         return basicGetType();
+      case DomainmodelPackage.FEATURE__VALUE:
+        return getValue();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -218,6 +251,7 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -231,6 +265,10 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
         return;
       case DomainmodelPackage.FEATURE__TYPE:
         setType((Type)newValue);
+        return;
+      case DomainmodelPackage.FEATURE__VALUE:
+        getValue().clear();
+        getValue().addAll((Collection<? extends String>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -255,6 +293,9 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
       case DomainmodelPackage.FEATURE__TYPE:
         setType((Type)null);
         return;
+      case DomainmodelPackage.FEATURE__VALUE:
+        getValue().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -275,6 +316,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case DomainmodelPackage.FEATURE__TYPE:
         return type != null;
+      case DomainmodelPackage.FEATURE__VALUE:
+        return value != null && !value.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -294,6 +337,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
     result.append(many);
     result.append(", name: ");
     result.append(name);
+    result.append(", value: ");
+    result.append(value);
     result.append(')');
     return result.toString();
   }

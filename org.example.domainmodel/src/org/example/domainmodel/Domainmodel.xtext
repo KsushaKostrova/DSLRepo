@@ -35,8 +35,11 @@ Entity:
         (methods+=Method)*
     '}';
     
+Value:
+	ID | '(' | ')' | '<' | '=' | '>' | '*' | '+' | '-';
+    
 Feature:
-    (many?='many')? name=ID ':' type=[Type|QualifiedName];
+    (many?='many')? name=ID ':' type=[Type|QualifiedName] (':' value+= Value*)?;
     
 Method:
 	'method' name=ID ':' body=MethodBody;

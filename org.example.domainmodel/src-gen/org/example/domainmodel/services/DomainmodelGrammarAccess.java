@@ -283,6 +283,53 @@ public class DomainmodelGrammarAccess extends AbstractGrammarElementFinder {
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
 	}
+	public class ValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.domainmodel.Domainmodel.Value");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
+		private final Keyword cLessThanSignKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
+		private final Keyword cEqualsSignKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
+		private final Keyword cGreaterThanSignKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
+		private final Keyword cAsteriskKeyword_6 = (Keyword)cAlternatives.eContents().get(6);
+		private final Keyword cPlusSignKeyword_7 = (Keyword)cAlternatives.eContents().get(7);
+		private final Keyword cHyphenMinusKeyword_8 = (Keyword)cAlternatives.eContents().get(8);
+		
+		//Value:
+		//	ID | '(' | ')' | '<' | '=' | '>' | '*' | '+' | '-';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//ID | '(' | ')' | '<' | '=' | '>' | '*' | '+' | '-'
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//ID
+		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_2() { return cRightParenthesisKeyword_2; }
+		
+		//'<'
+		public Keyword getLessThanSignKeyword_3() { return cLessThanSignKeyword_3; }
+		
+		//'='
+		public Keyword getEqualsSignKeyword_4() { return cEqualsSignKeyword_4; }
+		
+		//'>'
+		public Keyword getGreaterThanSignKeyword_5() { return cGreaterThanSignKeyword_5; }
+		
+		//'*'
+		public Keyword getAsteriskKeyword_6() { return cAsteriskKeyword_6; }
+		
+		//'+'
+		public Keyword getPlusSignKeyword_7() { return cPlusSignKeyword_7; }
+		
+		//'-'
+		public Keyword getHyphenMinusKeyword_8() { return cHyphenMinusKeyword_8; }
+	}
 	public class FeatureElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.domainmodel.Domainmodel.Feature");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -294,12 +341,16 @@ public class DomainmodelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final CrossReference cTypeTypeCrossReference_3_0 = (CrossReference)cTypeAssignment_3.eContents().get(0);
 		private final RuleCall cTypeTypeQualifiedNameParserRuleCall_3_0_1 = (RuleCall)cTypeTypeCrossReference_3_0.eContents().get(1);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cColonKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cValueAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cValueValueParserRuleCall_4_1_0 = (RuleCall)cValueAssignment_4_1.eContents().get(0);
 		
 		//Feature:
-		//	many?='many'? name=ID ':' type=[Type|QualifiedName];
+		//	many?='many'? name=ID ':' type=[Type|QualifiedName] (':' value+=Value*)?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//many?='many'? name=ID ':' type=[Type|QualifiedName]
+		//many?='many'? name=ID ':' type=[Type|QualifiedName] (':' value+=Value*)?
 		public Group getGroup() { return cGroup; }
 		
 		//many?='many'?
@@ -325,6 +376,18 @@ public class DomainmodelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//QualifiedName
 		public RuleCall getTypeTypeQualifiedNameParserRuleCall_3_0_1() { return cTypeTypeQualifiedNameParserRuleCall_3_0_1; }
+		
+		//(':' value+=Value*)?
+		public Group getGroup_4() { return cGroup_4; }
+		
+		//':'
+		public Keyword getColonKeyword_4_0() { return cColonKeyword_4_0; }
+		
+		//value+=Value*
+		public Assignment getValueAssignment_4_1() { return cValueAssignment_4_1; }
+		
+		//Value
+		public RuleCall getValueValueParserRuleCall_4_1_0() { return cValueValueParserRuleCall_4_1_0; }
 	}
 	public class MethodElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.domainmodel.Domainmodel.Method");
@@ -410,6 +473,7 @@ public class DomainmodelGrammarAccess extends AbstractGrammarElementFinder {
 	private final TypeElements pType;
 	private final DataTypeElements pDataType;
 	private final EntityElements pEntity;
+	private final ValueElements pValue;
 	private final FeatureElements pFeature;
 	private final MethodElements pMethod;
 	private final NumElements pNum;
@@ -433,6 +497,7 @@ public class DomainmodelGrammarAccess extends AbstractGrammarElementFinder {
 		this.pType = new TypeElements();
 		this.pDataType = new DataTypeElements();
 		this.pEntity = new EntityElements();
+		this.pValue = new ValueElements();
 		this.pFeature = new FeatureElements();
 		this.pMethod = new MethodElements();
 		this.pNum = new NumElements();
@@ -561,8 +626,18 @@ public class DomainmodelGrammarAccess extends AbstractGrammarElementFinder {
 		return getEntityAccess().getRule();
 	}
 	
+	//Value:
+	//	ID | '(' | ')' | '<' | '=' | '>' | '*' | '+' | '-';
+	public ValueElements getValueAccess() {
+		return pValue;
+	}
+	
+	public ParserRule getValueRule() {
+		return getValueAccess().getRule();
+	}
+	
 	//Feature:
-	//	many?='many'? name=ID ':' type=[Type|QualifiedName];
+	//	many?='many'? name=ID ':' type=[Type|QualifiedName] (':' value+=Value*)?;
 	public FeatureElements getFeatureAccess() {
 		return pFeature;
 	}
