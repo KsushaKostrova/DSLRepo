@@ -50,6 +50,11 @@ public class DomainmodelGenerator extends AbstractGenerator {
       }
     }
     _builder.newLine();
+    _builder.append("import java.io.Serializable;");
+    _builder.newLine();
+    _builder.append("import java.util.Date;");
+    _builder.newLine();
+    _builder.newLine();
     _builder.append("public class ");
     String _name = e.getName();
     _builder.append(_name);
@@ -64,8 +69,11 @@ public class DomainmodelGenerator extends AbstractGenerator {
         _builder.append(" ");
       }
     }
-    _builder.append("{");
+    _builder.append("implements Serializable {");
     _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    _builder.append("private static final long serialVersionUID = 1L;");
+    _builder.newLine();
     {
       EList<Feature> _features = e.getFeatures();
       for(final Feature f : _features) {
@@ -97,14 +105,8 @@ public class DomainmodelGenerator extends AbstractGenerator {
     _builder.append(" ");
     String _name = f.getName();
     _builder.append(_name);
-    {
-      if ((((f.getValue() != null) && (!f.getValue().equals(""))) && f.getType().equals("String"))) {
-        _builder.append(" = \"");
-        String _value = this.getValue(f);
-        _builder.append(_value);
-        _builder.append("\"");
-      }
-    }
+    String _value = this.getValue(f);
+    _builder.append(_value);
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
@@ -169,10 +171,46 @@ public class DomainmodelGenerator extends AbstractGenerator {
   
   public String getValue(final Feature f) {
     String result = "";
-    for (int i = 0; (i < ((Object[])Conversions.unwrapArray(f.getValue(), Object.class)).length); i++) {
-      String _get = f.getValue().get(i);
-      String _plus = (result + _get);
-      result = _plus;
+    boolean _equals = f.getType().getName().equals("String");
+    if (_equals) {
+      for (int i = 0; (i < ((Object[])Conversions.unwrapArray(f.getValue(), Object.class)).length); i++) {
+        {
+          boolean _equals_1 = result.equals("");
+          boolean _not = (!_equals_1);
+          if (_not) {
+            result = (result + " ");
+          }
+          String _get = f.getValue().get(i);
+          String _plus = (result + _get);
+          result = _plus;
+        }
+      }
+      boolean _equals_1 = result.equals("");
+      boolean _not = (!_equals_1);
+      if (_not) {
+        result = (((" = " + "\"") + result) + "\"");
+      }
+    } else {
+      boolean _equals_2 = f.getType().getName().equals("Boolean");
+      if (_equals_2) {
+        for (int i = 0; (i < ((Object[])Conversions.unwrapArray(f.getValue(), Object.class)).length); i++) {
+          {
+            boolean _equals_3 = result.equals("");
+            boolean _not_1 = (!_equals_3);
+            if (_not_1) {
+              result = (result + " ");
+            }
+            String _get = f.getValue().get(i);
+            String _plus = (result + _get);
+            result = _plus;
+          }
+        }
+        boolean _equals_3 = result.equals("");
+        boolean _not_1 = (!_equals_3);
+        if (_not_1) {
+          result = (" = " + result);
+        }
+      }
     }
     return result;
   }

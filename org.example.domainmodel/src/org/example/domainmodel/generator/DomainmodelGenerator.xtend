@@ -29,8 +29,12 @@ class DomainmodelGenerator extends AbstractGenerator {
             package «e.eContainer.fullyQualifiedName»;
         «ENDIF»
         
+        import java.io.Serializable;
+        import java.util.Date;
+        
         public class «e.name» «IF e.superType !== null
-                »extends «e.superType.fullyQualifiedName» «ENDIF»{
+                »extends «e.superType.fullyQualifiedName» «ENDIF»implements Serializable {
+            private static final long serialVersionUID = 1L;
             «FOR f : e.features»
                 «f.compile»
             «ENDFOR»
@@ -41,7 +45,7 @@ class DomainmodelGenerator extends AbstractGenerator {
     '''
  
     def compile(Feature f) '''    	 
-        private «f.type.fullyQualifiedName» «f.name»«IF f.value !== null && !f.value.equals("") && f.type.equals("String")» = "«getValue(f)»"«ENDIF»;
+        private «f.type.fullyQualifiedName» «f.name»«getValue(f)»;
         
         public «f.type.fullyQualifiedName» get«f.name.toFirstUpper»() {
             return «f.name»;
@@ -59,9 +63,29 @@ class DomainmodelGenerator extends AbstractGenerator {
     '''
     def String getValue(Feature f) {
 		var String result = ""
-    	for (var int i = 0; i < f.getValue().length; i++) {
-    		result = result+f.getValue().get(i)
-    	}
+		//System.out.println(f.type.name)
+		if (f.type.name.equals("String")){
+			for (var int i = 0; i < f.getValue().length; i++) {
+				if (!result.equals("")){
+					result = result + " "
+				}
+				result = result+f.getValue().get(i)
+			}
+			if (!result.equals("")){
+				result = " = " +"\"" + result + "\""
+			}
+			//System.out.println(result)
+    	} else if (f.type.name.equals("Boolean")){
+    		for (var int i = 0; i < f.getValue().length; i++) {
+				if (!result.equals("")){
+					result = result + " "
+				}
+				result = result+f.getValue().get(i)
+			}
+			if (!result.equals("")){
+				result = " = " + result
+			}
+    	}	
     	return result
     }
     
